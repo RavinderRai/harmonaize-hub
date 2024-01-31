@@ -5,6 +5,7 @@ import torchaudio
 import os 
 import numpy as np
 import base64
+import subprocess
 
 @st.cache_resource
 def load_model():
@@ -62,36 +63,57 @@ def get_binary_file_downloader_html(bin_file, file_label='File'):
     return href
 
 st.set_page_config(
+    layout= 'wide',
     page_icon= "musical_note",
-    page_title= "Music Gen"
+    page_title= "Text to Music"
 )
 
 def main():
+    st.title("Visualizing Generated Music from Text 🎵")
 
-    st.title("Text to Music Generator🎵")
+    st.write("Music Generator app built using Meta's Music Gen Small model from their Audiocraft library.")
+    st.write("Output will be a video with the music alongside a visual representation of the notes being played.")
 
-    with st.expander("See explanation"):
-        st.write("Music Generator app built using Meta's Audiocraft library. We are using Music Gen Small model.")
+    col1, col2 = st.columns(2)
+    
+    with col1:
+        text_area = st.text_area(
+            "Enter your description here:\n\nVisual Representation works best with solo instruments.\n\nTry something like solo piano music in a jazz style for best results.", 
+            value='solo piano music in a jazz style',
+            key="text_input"
+        )
+        generate_button = st.button("Generate Music")
+        
+        #no time slider for now
+        #time_slider = st.slider("Select time duration (In Seconds)", 0, 20, 10)
 
-    text_area = st.text_area("Enter your description.......")
-    time_slider = st.slider("Select time duration (In Seconds)", 0, 20, 10)
+    with col2:
+        subheader_container = st.empty()
+        if generate_button:
+    
+            subheader_container.subheader("Generating Music...")
+    
+            #setting time to be 10 seconds and not using time slider for now
+            music_tensors = generate_music_tensors(text_area, 10)
+            print("Musci Tensors: ", music_tensors)
+            save_music_file = save_audio(music_tensors)
+            audio_filepath = 'audio_output/audio_0.wav'
+    
+            script_name = 'NoteSimulation.py'
+    
+            try:
+                result = subprocess.run(['python', script_name], check=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
+                print("Output:", result.stdout)
+            except subprocess.CalledProcessError as e:
+                print(f"Error running {script_name}: {e}")
+                print("Error Output:", e.stderr)
 
-    if text_area and time_slider:
-        st.json({
-            'Your Description': text_area,
-            'Selected Time Duration (in Seconds)': time_slider
-        })
-
-        st.subheader("Generated Music")
-        music_tensors = generate_music_tensors(text_area, time_slider)
-        print("Musci Tensors: ", music_tensors)
-        save_music_file = save_audio(music_tensors)
-        audio_filepath = 'audio_output/audio_0.wav'
-        audio_file = open(audio_filepath, 'rb')
-        audio_bytes = audio_file.read()
-        st.audio(audio_bytes)
-        st.markdown(get_binary_file_downloader_html(audio_filepath, 'Audio'), unsafe_allow_html=True)
-
+            subheader_container.subheader("Generated Music")
+    
+            video_filepath = 'movie.mp4'
+            video_file = open(video_filepath, 'rb').read()
+            st.video(video_file)
+            st.markdown(get_binary_file_downloader_html(audio_filepath, 'Audio'), unsafe_allow_html=True)
 
 if __name__ == "__main__":
     main()
