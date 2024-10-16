@@ -75,7 +75,7 @@ HarmonAIzeHub/
 1. Run the Streamlit app:
 
     ```sh
-    streamlit run src/app.py
+    streamlit run main.py
     ```
 
 2. Open your web browser and navigate to http://localhost:8501.
