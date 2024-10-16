@@ -2,7 +2,7 @@
 
 This is a simple app that generates music from text and visualizes the output in a video, showing the music. Here is an example of what this will look like:
 
-![Streamlit Screenshot](MusicGenExampleImage.jpg)
+![Streamlit Screenshot](media/MusicGenExampleImage.jpg)
 
 The app uses the new facebook research audiocraft libraries to generate music from text - specifically using the small model. Then it visualizes the notes being played using fast fourier transforms. 
 

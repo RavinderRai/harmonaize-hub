@@ -1,4 +1,3 @@
-from audiocraft.models import MusicGen
 import streamlit as st 
 import torch 
 import torchaudio
@@ -6,6 +5,11 @@ import os
 import numpy as np
 import base64
 import subprocess
+import sys
+
+sys.path.append(os.path.join(os.path.dirname(__file__), 'audiocraft'))
+
+from audiocraft.models import MusicGen
 
 @st.cache_resource
 def load_model():
@@ -33,13 +37,11 @@ def generate_music_tensors(description, duration: int):
 
 
 def save_audio(samples: torch.Tensor):
-    """Renders an audio player for the given audio samples and saves them to a local directory.
+    """
+    Renders an audio player for the given audio samples and saves them to a local directory.
 
     Args:
-        samples (torch.Tensor): a Tensor of decoded audio samples
-            with shapes [B, C, T] or [C, T]
-        sample_rate (int): sample rate audio should be displayed with.
-        save_path (str): path to the directory where audio should be saved.
+        samples (torch.Tensor): A tensor of decoded audio samples with shapes [B, C, T] or [C, T].
     """
 
     print("Samples (inside function): ", samples)
@@ -95,7 +97,7 @@ def main():
     
             #setting time to be 10 seconds and not using time slider for now
             music_tensors = generate_music_tensors(text_area, 10)
-            print("Musci Tensors: ", music_tensors)
+            print("Music Tensors: ", music_tensors)
             save_music_file = save_audio(music_tensors)
             audio_filepath = 'audio_output/audio_0.wav'
     
@@ -110,7 +112,7 @@ def main():
 
             subheader_container.subheader("Generated Music")
     
-            video_filepath = 'movie.mp4'
+            video_filepath = 'media/movie.mp4'
             video_file = open(video_filepath, 'rb').read()
             st.video(video_file)
             st.markdown(get_binary_file_downloader_html(audio_filepath, 'Audio'), unsafe_allow_html=True)

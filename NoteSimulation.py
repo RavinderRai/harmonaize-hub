@@ -142,7 +142,7 @@ for frame_number in tqdm.tqdm(range(FRAME_COUNT)):
 
 image_directory = 'audio_output/frames/'
 audio_file = 'audio_output/audio_0.wav'
-output_video_file = 'movie.mp4'
+output_video_file = 'media/movie.mp4'
 
 ffmpeg_command = f"ffmpeg -y -r {FPS} -f image2 -s 1920x1080 -i {image_directory}frame%d.png -i {audio_file} -c:v libx264 -pix_fmt yuv420p {output_video_file}"
 
