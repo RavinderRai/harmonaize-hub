@@ -6,12 +6,19 @@ Below is a demo as a gif file. Click here to watch it with audio: [video demonst
 
 ![Streamlit Screenshot](media/HarmonAIze_Hub_Demo.gif)
 
-
 ## Features
 
 - **Text-to-Music Generation**: Input a text description to generate music. The app uses the MusicGen model to create music based on the provided description.
 - **Music Visualization**: Visualize the generated music with a breakdown of the notes being played using FFT.
 - **Video Output**: The app produces a video combining the generated music and its visualization.
+
+## How It Works
+
+1. **Text Input:** The user inputs a text description of the desired music.
+2. **Music Generation:** The app uses the MusicGen model to generate music based on the text description.
+3. **FFT Analysis:** The generated music is analyzed using FFT to extract frequency information.
+4. **Visualization:** The frequency information is visualized, showing the notes being played.
+5. **Video Creation:** The visualization frames and the generated music are combined into a video using FFmpeg.
 
 ## Installation
 
@@ -78,11 +85,3 @@ HarmonAIzeHub/
 ├── requirements.txt
 └── README.md
 ```
-
-## How It Works
-
-1. **Text Input:** The user inputs a text description of the desired music.
-2. **Music Generation:** The app uses the MusicGen model to generate music based on the text description.
-3. **FFT Analysis:** The generated music is analyzed using FFT to extract frequency information.
-4. **Visualization:** The frequency information is visualized, showing the notes being played.
-5. **Video Creation:** The visualization frames and the generated music are combined into a video using FFmpeg.
