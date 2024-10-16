@@ -20,6 +20,20 @@ Below is a demo as a gif file. Click here to watch it with audio: [video demonst
 4. **Visualization:** The frequency information is visualized, showing the notes being played.
 5. **Video Creation:** The visualization frames and the generated music are combined into a video using FFmpeg.
 
+## Project Structure
+
+```
+HarmonAIzeHub/
+├── audiocraft/                # Submodule for Audiocraft library
+├── media/                     # Directory for media files
+├── src/                       # Source code directory
+│   ├── app.py                 # Main Streamlit app
+│   ├── visualizer.py          # Music visualization logic
+│   └── ...                    # Other source files
+├── requirements.txt
+└── README.md
+```
+
 ## Installation
 
 ### Prerequisites
@@ -71,17 +85,3 @@ Below is a demo as a gif file. Click here to watch it with audio: [video demonst
 4. Adjust the duration of the generated music using the slider.
 
 5. Click the "Generate Music" button to create and visualize the music.
-
-## Project Structure
-
-```
-HarmonAIzeHub/
-├── audiocraft/                # Submodule for Audiocraft library
-├── media/                     # Directory for media files
-├── src/                       # Source code directory
-│   ├── app.py                 # Main Streamlit app
-│   ├── visualizer.py          # Music visualization logic
-│   └── ...                    # Other source files
-├── requirements.txt
-└── README.md
-```
