@@ -85,3 +85,9 @@ HarmonAIzeHub/
 4. Adjust the duration of the generated music using the slider.
 
 5. Click the "Generate Music" button to create and visualize the music.
+
+## Acknowledgements
+
+- Meta's MusicGen Model
+- Free Music Archive
+- FFmpeg
